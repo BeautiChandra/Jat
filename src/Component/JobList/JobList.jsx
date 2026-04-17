@@ -1,7 +1,7 @@
 import Jobcard from "../Jobcard/Jobcard";
 export default function JobList() {
   return (
-    <div className="w-full mt-8 flex items-center flex-col gap-4">
+    <div className="w-full  mt-8 flex items-center flex-col gap-4">
       <div className="w-[70%] flex justify-between items-center p-4 rounded-md shadow">
         <div className=" flex gap-3">
           <select className="p-2 px-4  shadow rounded bg-gray-400">
@@ -25,7 +25,7 @@ export default function JobList() {
           className="bg-gray-50 p-2 border-gray-400 w-50 focus:outline-none focus:ring-1 focus:ring-blue-400"
         />
       </div>
-      <div className="w-[70%] h-100 bg-gray-50 rounded-md ">
+      <div className="w-[70%] h-full mb-5 bg-gray-50 rounded-md ">
         {/* <p className="text-center mt-10">No Jobs Yet</p> */}
         <Jobcard />
       </div>

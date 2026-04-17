@@ -3,7 +3,7 @@ import useForm from "../../Context/UseForm";
 import { MoreVertical } from "lucide-react";
 
 export default function JobCard() {
-  const { jobs, setJobs } = useForm();
+  const { jobs, setJobs, setEditIndex } = useForm();
   const [openMenu, setOpenMenu] = useState(null);
 
   const handleDelete = (i) => {
@@ -54,7 +54,12 @@ export default function JobCard() {
             {/* MENU */}
             {openMenu === index && (
               <div className="absolute right-0 top-8 w-28 rounded-lg bg-white shadow-lg border z-10">
-                <button className="w-full text-left px-3 py-2 hover:bg-gray-100 text-sm rounded-t-lg">
+                <button
+                  className="w-full text-left px-3 py-2 hover:bg-gray-100 text-sm rounded-t-lg"
+                  onClick={() => {
+                    setEditIndex(index), setOpenMenu(null);
+                  }}
+                >
                   Edit
                 </button>
 
