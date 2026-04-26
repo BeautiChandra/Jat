@@ -1,21 +1,40 @@
-import { createContext, useState, useEffect } from "react";
+import { useState, useContext } from "react";
+import { FormContext } from "./FormContext.js";
 
-export const FormContext = createContext();
+export default function FormContextProvider({ children }) {
+  const [jobsData, setJobsData] = useState([]);
 
-export function FormProvider({ children }) {
-  const [editIndex, setEditIndex] = useState(null);
-  const [jobs, setJobs] = useState(() => {
-    const data = localStorage.getItem("jobs");
-    return data ? JSON.parse(data) : [];
-  });
+  const addJob = (jobData) => {
+    const { company, role, date, status } = jobData;
+    if (!company || !role || !date || !status) return;
+    const newJob = {
+      id: Date.now(),
+      company,
+      role,
+      date,
+      status,
+    };
+    setJobsData([...jobsData, newJob]);
+  };
 
-  useEffect(() => {
-    localStorage.setItem("jobs", JSON.stringify(jobs));
-  }, [jobs]);
+  const deleteJob = (id) => {
+    let updatedJobs = jobsData.filter((job) => job.id !== id);
+    setJobsData(updatedJobs);
+  };
+
+  const editJob = (updatedJob) => {
+    setJobsData((prevJobs) =>
+      prevJobs.map((job) => {
+        job.id == updatedJob.id ? updatedJob : job;
+      })
+    );
+  };
 
   return (
-    <FormContext.Provider value={{ jobs, setJobs, editIndex, setEditIndex }}>
+    <FormContext.Provider value={{ jobsData, addJob, deleteJob, editJob }}>
       {children}
     </FormContext.Provider>
   );
 }
+
+export const UseForm = () => useContext(FormContext);

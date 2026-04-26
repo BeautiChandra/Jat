@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import useForm from "../../Context/UseForm";
+import { useState } from "react";
+import { UseForm } from "../../Context/FormContext.jsx";
 
 export default function JobForm() {
-  const { jobs, setJobs, editIndex, setEditIndex } = useForm();
+  const { addJob } = UseForm();
 
   const [formData, setFormData] = useState({
     company: "",
@@ -11,32 +11,17 @@ export default function JobForm() {
     date: "",
   });
 
-  // ✅ Fill form when editing
-  useEffect(() => {
-    if (editIndex !== null) {
-      setFormData(jobs[editIndex]);
-    }
-  }, [editIndex, jobs]);
-
-  // ✅ Handle input change
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  // ✅ Submit (Add + Edit)
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (editIndex !== null) {
-      const updatedJobs = [...jobs];
-      updatedJobs[editIndex] = formData;
-      setJobs(updatedJobs);
-      setEditIndex(null);
-    } else {
-      setJobs([...jobs, formData]);
-    }
-
-    // Reset form
+    addJob(formData);
     setFormData({
       company: "",
       role: "",
@@ -48,9 +33,7 @@ export default function JobForm() {
   return (
     <div className="w-full  mt-10 flex justify-center">
       <div className="w-[70%] bg-gray-50 rounded-xl shadow-md p-6">
-        <h2 className="font-semibold text-xl">
-          {editIndex !== null ? "Edit Job" : "Add Job Application"}
-        </h2>
+        <h2 className="font-semibold text-xl"></h2>
 
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
@@ -99,9 +82,7 @@ export default function JobForm() {
             <button
               type="submit"
               className="bg-blue-500 text-white px-5 py-2 rounded-md"
-            >
-              {editIndex !== null ? "Update Job" : "Add Job"}
-            </button>
+            ></button>
           </div>
         </form>
       </div>
