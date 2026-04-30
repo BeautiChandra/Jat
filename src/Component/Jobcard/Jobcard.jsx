@@ -1,79 +1,75 @@
-// import { useState } from "react";
-// import useForm from "../../Context/UseForm";
-// import { MoreVertical } from "lucide-react";
+import { useState } from "react";
+import { UseForm } from "../../Context/FormContext.jsx";
+import { MoreVertical } from "lucide-react";
 
-// export default function JobCard() {
-//   const { jobs, setJobs, setEditIndex } = useForm();
-//   const [openMenu, setOpenMenu] = useState(null);
+export default function JobCard({ job }) {
+  const { deleteJob, editJob } = UseForm();
 
-//   const handleDelete = (i) => {
-//     const updatedJobs = jobs.filter((_, index) => index !== i);
-//     setJobs(updatedJobs);
-//     setOpenMenu(null); // ✅ close menu
-//   };
+  // Local state to handle the "Edit Mode" UI
+  const [isEditing, setIsEditing] = useState(false);
+  const [editData, setEditData] = useState({ ...job });
+  const [showMenu, setShowMenu] = useState(false);
 
-//   return (
-//     <div className="w-full mt-10 px-4">
-//       {jobs.map((item, index) => (
-//         <div
-//           key={index}
-//           className="bg-white shadow-md p-4 m-4  border-b-gray-400 flex justify-between items-center"
-//         >
-//           <div>
-//             <h2 className="text-lg font-semibold">{item.company}</h2>
+  const handleUpdate = () => {
+    editJob(editData);
+    setIsEditing(false); // Close edit mode after saving
+  };
 
-//             {/* ROLE */}
-//             <p
-//               className={`text-sm px-3 py-1 rounded-md inline-block mt-2 ${
-//                 item.role.toLowerCase() === "frontend"
-//                   ? "bg-green-600 text-white"
-//                   : item.role.toLowerCase() === "backend"
-//                   ? "bg-blue-600 text-white"
-//                   : "bg-gray-100 text-gray-600"
-//               }`}
-//             >
-//               {item.role}
-//             </p>
+  return (
+    <div className="w-full bg-white  p-6 mt-6  shadow-sm flex justify-between items-center hover:bg-sky-100">
+      {isEditing ? (
+        // EDIT MODE: Show Input Fields
+        <div className="flex gap-2 grow">
+          <input
+            className="border p-1 rounded"
+            value={editData.company}
+            onChange={(e) =>
+              setEditData({ ...editData, company: e.target.value })
+            }
+          />
+          <input
+            className="border p-1 rounded"
+            value={editData.role}
+            onChange={(e) => setEditData({ ...editData, role: e.target.value })}
+          />
+          <button onClick={handleUpdate} className="text-green-600 font-bold">
+            Save
+          </button>
+        </div>
+      ) : (
+        // VIEW MODE: Show Text
+        <div className="grow">
+          <h3 className="font-bold text-lg">{job.company}</h3>
+          <p className="text-gray-600">
+            {job.role} - <span className="text-sm italic">{job.status}</span>
+          </p>
+        </div>
+      )}
 
-//             {/* STATUS */}
-//             <span className="text-sm ml-2 bg-blue-100 text-blue-600 px-2 py-1 rounded-md">
-//               {item.status}
-//             </span>
-//           </div>
+      <div className="relative">
+        <button onClick={() => setShowMenu(!showMenu)}>
+          {" "}
+          <MoreVertical className=" cursor-pointer" />
+        </button>
 
-//           <div className="flex items-center gap-4 relative">
-//             <p className="text-gray-500">{item.date}</p>
+        {showMenu && (
+          <div className=" absolute right-0 w-30 mr-2 bg-gray-100 p-2  flex flex-col gap-2">
+            <button
+              onClick={() => setIsEditing(!isEditing)}
+              className=" px-3 py-1 rounded text-sm hover:text-red-600 bg-gray-200"
+            >
+              {isEditing ? "Cancel" : "Edit"}
+            </button>
 
-//             <button
-//               onClick={() => setOpenMenu(openMenu === index ? null : index)}
-//               className="p-1 hover:bg-gray-100 rounded-full"
-//             >
-//               <MoreVertical size={20} />
-//             </button>
-
-//             {/* MENU */}
-//             {openMenu === index && (
-//               <div className="absolute right-0 top-8 w-28 rounded-lg bg-white shadow-lg border z-10">
-//                 <button
-//                   className="w-full text-left px-3 py-2 hover:bg-gray-100 text-sm rounded-t-lg"
-//                   onClick={() => {
-//                     setEditIndex(index), setOpenMenu(null);
-//                   }}
-//                 >
-//                   Edit
-//                 </button>
-
-//                 <button
-//                   onClick={() => handleDelete(index)} // ✅ FIX
-//                   className="w-full text-left px-3 py-2 hover:bg-red-100 text-sm text-red-500 rounded-b-lg"
-//                 >
-//                   Delete
-//                 </button>
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
+            <button
+              onClick={() => deleteJob(job.id)}
+              className="px-3 py-1 rounded text-sm hover:text-red-600 bg-gray-200"
+            >
+              Delete
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

@@ -24,9 +24,7 @@ export default function FormContextProvider({ children }) {
 
   const editJob = (updatedJob) => {
     setJobsData((prevJobs) =>
-      prevJobs.map((job) => {
-        job.id == updatedJob.id ? updatedJob : job;
-      })
+      prevJobs.map((job) => (job.id === updatedJob.id ? updatedJob : job))
     );
   };
 
