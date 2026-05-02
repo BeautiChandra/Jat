@@ -13,17 +13,27 @@ export default function JobList() {
   const [search, setSearch] = useState("");
 
   const [statusFilter, setStatusFilter] = useState("All Status");
+  const [sortDate, setSortDate] = useState("Sort by Date");
 
-  const FilteredJobs = jobsData.filter((job) => {
-    const matchSearch = job.company
-      ?.toLowerCase()
-      .includes(search.toLowerCase());
+  const FilteredJobs = jobsData
+    .filter((job) => {
+      const matchSearch = job.company
+        ?.toLowerCase()
+        .includes(search.toLowerCase());
 
-    const matchStatus =
-      statusFilter === "All Status" || job.status === statusFilter;
+      const matchStatus =
+        statusFilter === "All Status" || job.status === statusFilter;
 
-    return matchSearch && matchStatus;
-  });
+      return matchSearch && matchStatus;
+    })
+    .sort((a, b) => {
+      if (sortDate === "Newest First")
+        return new Date(b.date) - new Date(a.date);
+      if (sortDate === "Oldest First") {
+        return new Date(a.date) - new Date(b.date);
+      }
+      return 0;
+    });
 
   // Search button click function
   const handleSearch = () => {
@@ -48,7 +58,11 @@ export default function JobList() {
             <option>Selected</option>
           </select>
 
-          <select className="p-2 px-4 shadow rounded bg-gray-400">
+          <select
+            className="p-2 px-4 shadow rounded bg-gray-400"
+            value={sortDate}
+            onChange={(e) => setSortDate(e.target.value)}
+          >
             <option>Sort by Date</option>
             <option>Newest First</option>
             <option>Oldest First</option>

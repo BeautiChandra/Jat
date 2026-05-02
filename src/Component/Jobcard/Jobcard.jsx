@@ -16,9 +16,8 @@ export default function JobCard({ job }) {
   };
 
   return (
-    <div className="w-full bg-white  p-6 mt-6  shadow-sm flex justify-between items-center hover:bg-sky-100">
+    <div className="relative w-full bg-white p-6 mt-6 shadow-sm flex justify-between items-center hover:bg-sky-100">
       {isEditing ? (
-        // EDIT MODE: Show Input Fields
         <div className="flex gap-2 grow">
           <input
             className="border p-1 rounded"
@@ -37,26 +36,27 @@ export default function JobCard({ job }) {
           </button>
         </div>
       ) : (
-        // VIEW MODE: Show Text
-        <div className="grow">
+        <div className="grow mr-4">
           <h3 className="font-bold text-lg">{job.company}</h3>
-          <p className="text-gray-600">
-            {job.role} - <span className="text-sm italic">{job.status}</span>
-          </p>
+          <div className="flex justify-between">
+            <p className="text-gray-600">
+              {job.role} - <span className="text-sm italic">{job.status}</span>
+            </p>
+            <p>{job.date}</p>
+          </div>
         </div>
       )}
 
-      <div className="relative">
+      <div className="absolute top-4 right-4">
         <button onClick={() => setShowMenu(!showMenu)}>
-          {" "}
-          <MoreVertical className=" cursor-pointer" />
+          <MoreVertical className="cursor-pointer" />
         </button>
 
         {showMenu && (
-          <div className=" absolute right-0 w-30 mr-2 bg-gray-100 p-2  flex flex-col gap-2">
+          <div className="absolute right-0 mt-2 top-8 z-50 w-28 bg-gray-100 p-2 rounded shadow-md flex flex-col gap-2">
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className=" px-3 py-1 rounded text-sm hover:text-red-600 bg-gray-200"
+              className="px-3 py-1 rounded text-sm hover:text-red-600 bg-gray-200"
             >
               {isEditing ? "Cancel" : "Edit"}
             </button>
