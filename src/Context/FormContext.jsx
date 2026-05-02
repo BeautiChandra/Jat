@@ -1,9 +1,15 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { FormContext } from "./FormContext.js";
 
 export default function FormContextProvider({ children }) {
-  const [jobsData, setJobsData] = useState([]);
+  const [jobsData, setJobsData] = useState(() => {
+    const saveJobs = localStorage.getItem("jobs");
+    return saveJobs ? JSON.parse(saveJobs) : [];
+  });
 
+  useEffect(() => {
+    localStorage.setItem("jobs", JSON.stringify(jobsData));
+  }, [jobsData]);
   const addJob = (jobData) => {
     const { company, role, date, status } = jobData;
     if (!company || !role || !date || !status) return;
