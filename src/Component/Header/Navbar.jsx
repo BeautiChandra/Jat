@@ -1,10 +1,21 @@
 import { useState, useRef, useEffect } from "react";
 import { MoreVertical } from "lucide-react";
 import logo from "../../image/logo.png";
+import { useContext } from "react";
+import UserContext from "../../Context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
+  const { logout } = useContext(UserContext);
+
+  const nevigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    nevigate("/login");
+  };
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -43,7 +54,10 @@ export default function Navbar() {
                 <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">
                   Password Settings
                 </button>
-                <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                <button
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                  onClick={handleLogout}
+                >
                   Logout
                 </button>
               </div>
