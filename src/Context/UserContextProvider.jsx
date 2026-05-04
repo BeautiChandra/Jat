@@ -2,7 +2,9 @@ import { useState } from "react";
 import UserContext from "./UserContext";
 
 const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
 
   const login = (userData) => {
     setUser(userData);

@@ -15,9 +15,9 @@ export default function JobList() {
 
   const FilteredJobs = jobsData
     .filter((job) => {
-      const matchSearch = job.company
-        ?.toLowerCase()
-        .includes(search.toLowerCase());
+      const matchSearch =
+        job.company?.toLowerCase().includes(search.toLowerCase()) ||
+        job.role?.toLowerCase().includes(search.toLowerCase());
 
       const matchStatus =
         statusFilter === "All Status" || job.status === statusFilter;
