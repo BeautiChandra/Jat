@@ -6,10 +6,8 @@ import { UseForm } from "../../Context/FormContext.jsx";
 export default function JobList() {
   const { jobsData } = UseForm();
 
-  // Input field value
   const [searchInput, setSearchInput] = useState("");
 
-  // Actual search value after clicking search icon
   const [search, setSearch] = useState("");
 
   const [statusFilter, setStatusFilter] = useState("All Status");
@@ -35,18 +33,16 @@ export default function JobList() {
       return 0;
     });
 
-  // Search button click function
   const handleSearch = () => {
     setSearch(searchInput);
   };
 
   return (
     <div className="w-full mt-8 flex items-center flex-col gap-4">
-      <div className="w-[70%] flex justify-between items-center p-4 rounded-md shadow">
-        {/* Filters */}
+      <div className="w-[70%] bg-white flex justify-between items-center p-4 rounded-md shadow">
         <div className="flex gap-3">
           <select
-            className="p-2 px-4 shadow rounded bg-gray-400"
+            className="p-2 px-4 shadow rounded bg-gray-300 outline-none"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -59,7 +55,7 @@ export default function JobList() {
           </select>
 
           <select
-            className="p-2 px-4 shadow rounded bg-gray-400"
+            className="p-2 px-4 shadow rounded bg-gray-300 outline-none"
             value={sortDate}
             onChange={(e) => setSortDate(e.target.value)}
           >
@@ -69,8 +65,7 @@ export default function JobList() {
           </select>
         </div>
 
-        {/* Search Box */}
-        <div className="relative w-64 bg-white">
+        <div className="relative w-64 bg-gray-200">
           <input
             type="text"
             placeholder="Search..."
@@ -86,8 +81,7 @@ export default function JobList() {
         </div>
       </div>
 
-      {/* Job List */}
-      <div className="w-[70%] h-full mb-5 bg-gray-50 rounded-md">
+      <div className="w-[70%] h-125 mb-5 bg-gray-50 rounded-md overflow-y-auto px-2 shadow-sm ">
         {FilteredJobs.length > 0 ? (
           FilteredJobs.map((job) => <Jobcard key={job.id} job={job} />)
         ) : (

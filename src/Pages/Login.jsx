@@ -14,7 +14,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const userData = { userName, email };
+    const userData = { userName, email, password };
     login(userData);
     navigate("/dashboard");
   };
