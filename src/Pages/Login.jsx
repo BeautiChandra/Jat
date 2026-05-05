@@ -33,7 +33,7 @@ export default function Login() {
 
         {/* Username */}
         <label htmlFor="userName" className="block mb-1 font-medium">
-          User Name
+          Name:
         </label>
         <input
           type="text"
@@ -49,13 +49,13 @@ export default function Login() {
 
         {/* Email */}
         <label htmlFor="email" className="block mb-1 font-medium">
-          Email
+          Email:
         </label>
         <input
           type="email"
           id="email"
           name="email"
-          placeholder="Enter Email"
+          placeholder="xyz@gmail.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="border border-gray-300 p-2 mb-4 w-full rounded-md 
@@ -65,7 +65,7 @@ export default function Login() {
 
         {/* Password */}
         <label htmlFor="password" className="block mb-1 font-medium">
-          Password
+          Password:
         </label>
         <input
           type={showPassword ? "text" : "password"}
@@ -75,7 +75,7 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="border border-gray-300 p-2 mb-2 w-full rounded-md 
-                     focus:outline-none focus:ring-2 focus:ring-blue focus:border-blue-500"
+                     focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-500"
           required
         />
 

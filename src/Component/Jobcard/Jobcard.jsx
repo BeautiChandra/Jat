@@ -12,7 +12,8 @@ export default function JobCard({ job }) {
 
   const handleUpdate = () => {
     editJob(editData);
-    setIsEditing(false); // Close edit mode after saving
+    setIsEditing((prev) => !prev);
+    setShowMenu((prev) => !prev);
   };
 
   return (
@@ -20,14 +21,14 @@ export default function JobCard({ job }) {
       {isEditing ? (
         <div className="flex gap-2 grow">
           <input
-            className="border p-1 rounded"
+            className="border p-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-500"
             value={editData.company}
             onChange={(e) =>
               setEditData({ ...editData, company: e.target.value })
             }
           />
           <input
-            className="border p-1 rounded"
+            className="border p-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-500"
             value={editData.role}
             onChange={(e) => setEditData({ ...editData, role: e.target.value })}
           />
@@ -38,11 +39,27 @@ export default function JobCard({ job }) {
       ) : (
         <div className="grow mr-4">
           <h3 className="font-bold text-lg">{job.company}</h3>
-          <div className="flex justify-between">
-            <p className="text-gray-600">
-              {job.role} - <span className="text-sm italic">{job.status}</span>
-            </p>
-            <p>{job.date}</p>
+          <div className="flex justify-between mt-1">
+            <div className="flex items-center gap-3">
+              <p className="text-gray-600">{job.role}</p>
+              <span
+                className={`px-2 py-1 rounded-full text-sm font-medium
+               ${
+                 job.status === "Applied"
+                   ? "bg-yellow-100 text-yellow-700"
+                   : job.status === "Interview"
+                   ? "bg-purple-100 text-purple-700"
+                   : job.status === "Rejected"
+                   ? "bg-red-300 text-red-700"
+                   : job.status === "Selected"
+                   ? "bg-blue-100 text-blue-600"
+                   : "bg-green-100 text-green-700"
+               }`}
+              >
+                {job.status}
+              </span>
+            </div>
+            <p className="text-sm text-gray-500">{job.date}</p>
           </div>
         </div>
       )}
@@ -53,7 +70,7 @@ export default function JobCard({ job }) {
         </button>
 
         {showMenu && (
-          <div className="absolute right-0 mt-2 top-8 z-50 w-28 bg-gray-100 p-2 rounded shadow-md flex flex-col gap-2">
+          <div className="absolute right-0 mt-2 top-8 z-10 w-28 bg-gray-100 p-2 rounded shadow-md flex flex-col gap-2">
             <button
               onClick={() => setIsEditing(!isEditing)}
               className="px-3 py-1 rounded text-sm hover:text-red-600 bg-gray-200"
