@@ -41,7 +41,7 @@ export default function JobCard({ job }) {
           <h3 className="font-bold text-lg">{job.company}</h3>
           <div className="flex justify-between mt-1">
             <div className="flex items-center gap-3">
-              <p className="text-gray-600">{job.role}</p>
+              <p className="text-gray-700 font-medium">{job.role}</p>
               <span
                 className={`px-2 py-1 rounded-full text-sm font-medium
                ${

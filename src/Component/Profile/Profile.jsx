@@ -7,6 +7,7 @@ export default function Profile() {
 
   const [editProfile, setEditProfile] = useState(false);
   const [editPassword, setEditPassword] = useState(false);
+  // const fileInputRef = useRef(null);
 
   const [profileData, setProfileData] = useState({
     ...user,

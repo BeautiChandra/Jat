@@ -43,6 +43,24 @@ export default function Navbar() {
         {/* Right Side */}
         <div className="flex items-center gap-3">
           {/* Login Button */}
+          {user && (
+            <div className="hidden md:flex gap-3">
+              <div
+                className="w-10 h-10 rounded-full bg-blue-800 text-white flex justify-center items-center hover:bg-blue-900  hover:cursor-pointer hover:font-bold transition  "
+                onClick={() => setShowProfile(!showProfile)}
+              >
+                {user.userName?.charAt(0).toUpperCase()}
+              </div>
+
+              <div
+                className="bg-white text-blue-500  font-medium rounded-md px-4 py-2 hover:cursor-pointer hover:bg-amber-50"
+                onClick={handleLogout}
+              >
+                LogOut
+              </div>
+            </div>
+          )}
+
           {!user && (
             <button
               onClick={() => navigate("/login")}
@@ -58,7 +76,7 @@ export default function Navbar() {
               {/* 3 Dot Button */}
               <button
                 onClick={() => setOpen(!open)}
-                className="text-white p-2 rounded-full hover:bg-blue-600"
+                className="md:hidden text-white p-2 rounded-full hover:bg-blue-600"
               >
                 <MoreVertical size={22} />
               </button>
