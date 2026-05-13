@@ -50,7 +50,7 @@ export default function JobList() {
   return (
     <div className="w-full mt-8 flex items-center flex-col gap-4">
       {/* Top Filter Section */}
-      <div className="w-[70%] bg-white flex justify-between items-center p-4 rounded-md shadow">
+      <div className="w-[70%] bg-white  flex justify-between items-center p-4 rounded-md shadow-md">
         {/* Filters */}
         <div className="flex gap-3">
           {/* Status Filter */}

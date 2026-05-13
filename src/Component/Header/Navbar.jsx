@@ -36,7 +36,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky z-50 top-0">
-      <nav className="w-full h-20 bg-blue-500 px-6 flex items-center justify-between">
+      <nav className="w-full h-20 bg-blue-500 px-6 py-4 flex items-center justify-between shadow-lg backdrop:blue-md">
         {/* Logo */}
         <img src={logo} alt="logo" className="h-30 w-auto" />
 

@@ -8,7 +8,7 @@ import FormContextProvider from "./Context/FormContext.jsx";
 createRoot(document.getElementById("root")).render(
   <UserContextProvider>
     <FormContextProvider>
-      <div className="min-h-screen bg-gray-200">
+      <div className="min-h-screen bg-white/90">
         <App />
       </div>
     </FormContextProvider>
