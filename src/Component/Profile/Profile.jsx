@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
 import UserContext from "../../Context/UserContext";
-import { Camera, Pencil, LogOut, Lock } from "lucide-react";
+import { Pencil, LogOut, Lock } from "lucide-react";
 
-export default function Profile() {
+export default function Profile({ setShowProfile }) {
   const { user, login, logout } = useContext(UserContext);
 
   const [editProfile, setEditProfile] = useState(false);
   const [editPassword, setEditPassword] = useState(false);
-  // const fileInputRef = useRef(null);
 
   const [profileData, setProfileData] = useState({
     ...user,
@@ -19,7 +18,7 @@ export default function Profile() {
 
   if (!user) return null;
 
-  // Save Name + Email
+  // Save Profile
   const handleProfileSave = () => {
     const updatedProfile = {
       ...user,
@@ -44,30 +43,36 @@ export default function Profile() {
   };
 
   return (
-    <div className="w-96 bg-white rounded-2xl shadow-lg p-6 mx-auto mt-10">
+    <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-5 sm:p-6 mx-auto mt-0 lg:mt-10 relative h-full lg:h-auto overflow-y-auto">
+      {/* Cross Button */}
+      <button
+        onClick={() => setShowProfile((prev) => !prev)}
+        className="absolute top-4 right-4 text-gray-500 hover:text-black text-2xl"
+      >
+        ✕
+      </button>
+
       {/* Profile Image */}
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center text-center">
         <div className="relative">
           {profileData.photo ? (
             <img
               src={profileData.photo}
               alt="Profile"
-              className="w-32 h-32 rounded-full object-cover border-4 border-blue-500"
+              className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-blue-500"
             />
           ) : (
-            <div className="w-32 h-32 rounded-full bg-blue-500 text-white flex items-center justify-center text-4xl font-bold">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-blue-500 text-white flex items-center justify-center text-3xl sm:text-4xl font-bold">
               {user.userName?.charAt(0).toUpperCase()}
             </div>
           )}
-
-          <button className="absolute bottom-1 right-1 bg-blue-500 p-2 rounded-full text-white">
-            <Camera size={18} />
-          </button>
         </div>
 
-        <h1 className="text-2xl font-bold mt-4">{user.userName}</h1>
+        <h1 className="text-xl sm:text-2xl font-bold mt-4">{user.userName}</h1>
 
-        <p className="text-gray-500">{user.email}</p>
+        <p className="text-gray-500 text-sm sm:text-base break-all">
+          {user.email}
+        </p>
       </div>
 
       {/* Divider */}
@@ -79,7 +84,7 @@ export default function Profile() {
           setEditProfile(!editProfile);
           setEditPassword(false);
         }}
-        className="w-full flex items-center gap-2 p-3 rounded-lg hover:bg-gray-100"
+        className="w-full flex items-center gap-2 p-3 rounded-lg hover:bg-gray-100 transition"
       >
         <Pencil size={18} />
         Edit Profile
@@ -98,7 +103,7 @@ export default function Profile() {
                 userName: e.target.value,
               })
             }
-            className="w-full border p-2 rounded"
+            className="w-full border p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <input
@@ -111,7 +116,7 @@ export default function Profile() {
                 email: e.target.value,
               })
             }
-            className="w-full border p-2 rounded"
+            className="w-full border p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <input
@@ -124,12 +129,12 @@ export default function Profile() {
                 photo: e.target.value,
               })
             }
-            className="w-full border p-2 rounded"
+            className="w-full border p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <button
             onClick={handleProfileSave}
-            className="w-full bg-blue-500 text-white py-2 rounded-lg"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg transition"
           >
             Save Profile
           </button>
@@ -142,7 +147,7 @@ export default function Profile() {
           setEditPassword(!editPassword);
           setEditProfile(false);
         }}
-        className="w-full flex items-center gap-2 p-3 rounded-lg hover:bg-gray-100 mt-3"
+        className="w-full flex items-center gap-2 p-3 rounded-lg hover:bg-gray-100 mt-3 transition"
       >
         <Lock size={18} />
         Password Settings
@@ -161,12 +166,12 @@ export default function Profile() {
                 password: e.target.value,
               })
             }
-            className="w-full border p-2 rounded"
+            className="w-full border p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <button
             onClick={handlePasswordSave}
-            className="w-full bg-blue-500 text-white py-2 rounded-lg"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg transition"
           >
             Save Password
           </button>
@@ -176,7 +181,7 @@ export default function Profile() {
       {/* Logout */}
       <button
         onClick={logout}
-        className="w-full flex justify-center items-center gap-2 mt-6 text-red-500 border border-red-500 py-3 rounded-lg hover:bg-red-50"
+        className="w-full flex justify-center items-center gap-2 mt-6 text-red-500 border border-red-500 py-3 rounded-lg hover:bg-red-50 transition"
       >
         <LogOut size={18} />
         Logout

@@ -5,9 +5,8 @@ import UserContext from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Profile from "../Profile/Profile";
 
-export default function Navbar() {
+export default function Navbar({ profileView, setProfileView }) {
   const [open, setOpen] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
 
   const menuRef = useRef(null);
 
@@ -25,7 +24,6 @@ export default function Navbar() {
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setOpen(false);
-        setShowProfile(false);
       }
     }
 
@@ -47,7 +45,7 @@ export default function Navbar() {
             <div className="hidden md:flex gap-3">
               <div
                 className="w-10 h-10 rounded-full bg-blue-800 text-white flex justify-center items-center hover:bg-blue-900  hover:cursor-pointer hover:font-bold transition  "
-                onClick={() => setShowProfile(!showProfile)}
+                onClick={() => setProfileView((prev) => !prev)}
               >
                 {user.userName?.charAt(0).toUpperCase()}
               </div>
@@ -88,7 +86,7 @@ export default function Navbar() {
                   <button
                     className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                     onClick={() => {
-                      setShowProfile(!showProfile);
+                      setProfileView(!profileView);
                       setOpen(false);
                     }}
                   >
@@ -106,11 +104,11 @@ export default function Navbar() {
               )}
 
               {/* Profile Card */}
-              {showProfile && (
+              {/* {showProfile && (
                 <div className="absolute right-0 top-14 z-50">
                   <Profile />
                 </div>
-              )}
+              )} */}
             </div>
           )}
         </div>

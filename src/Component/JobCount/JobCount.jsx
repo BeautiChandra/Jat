@@ -1,4 +1,4 @@
-import { Briefcase, Users, Star, XCircle } from "lucide-react";
+import { Briefcase, Users, Star, XCircle, BadgeCheck } from "lucide-react";
 import { UseForm } from "../../Context/FormContext.jsx";
 // import { FormContext } from "../../Context/FormContext.jsx";
 export default function JobCount() {
@@ -17,7 +17,8 @@ export default function JobCount() {
   ).length;
 
   return (
-    <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 ">
+    // <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-6 ">
+    <div className="w-full px-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mt-6">
       <div className="bg-yellow-50 text-center rounded-2xl shadow-md p-4 flex gap-4 items-center">
         <div className="w-15 h-15 bg-yellow-200 rounded-full flex items-center justify-center">
           <Briefcase className="text-yellow-400" size={28} />
@@ -54,6 +55,15 @@ export default function JobCount() {
         <div className="flex flex-col">
           <h2 className="text-2xl font-bold text-red-600">{rejectedCount}</h2>
           <p className="text-gray-600 font-medium">rejected</p>
+        </div>
+      </div>
+      <div className="bg-cyan-100 text-center rounded-2xl shadow-md p-4 flex gap-4  items-center">
+        <div className="w-15 h-15 bg-cyan-200 rounded-full flex items-center justify-center">
+          <BadgeCheck className="text-cyan-600 " size={28} />
+        </div>
+        <div className="flex flex-col">
+          <h2 className="text-2xl font-bold text-cyan-600">{rejectedCount}</h2>
+          <p className="text-gray-600 font-medium">ShortListed</p>
         </div>
       </div>
     </div>

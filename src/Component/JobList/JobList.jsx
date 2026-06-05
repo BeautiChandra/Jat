@@ -48,14 +48,14 @@ export default function JobList() {
   };
 
   return (
-    <div className="w-full mt-8 flex items-center flex-col gap-4">
+    <div className="w-full mt-8 flex items-center flex-col gap-4 px-4">
       {/* Top Filter Section */}
-      <div className="w-[70%] bg-white  flex justify-between items-center p-4 rounded-md shadow-md">
+      <div className="w-full max-w-6xl bg-white flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between items-center p-4 rounded-xl shadow-md">
         {/* Filters */}
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto md:flex justify-betweenx">
           {/* Status Filter */}
           <select
-            className="p-2 px-4 shadow rounded bg-gray-300 outline-none"
+            className="w-full sm:w-auto p-3 px-4 shadow rounded bg-gray-200 outline-none"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -69,7 +69,7 @@ export default function JobList() {
 
           {/* Date Sorting */}
           <select
-            className="p-2 px-4 shadow rounded bg-gray-300 outline-none"
+            className="w-full sm:w-auto p-3 px-4 shadow rounded bg-gray-200 outline-none"
             value={sortDate}
             onChange={(e) => setSortDate(e.target.value)}
           >
@@ -80,11 +80,11 @@ export default function JobList() {
         </div>
 
         {/* Search Box */}
-        <div className="relative w-64 bg-gray-200">
+        <div className="relative w-full lg:w-72">
           <input
             type="text"
             placeholder="Search by company or role..."
-            className="w-full p-2 pr-10 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-3 pr-10 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-blue-400"
             value={searchInput}
             onChange={(e) => {
               const value = e.target.value;
@@ -106,7 +106,7 @@ export default function JobList() {
       </div>
 
       {/* Scrollable Job List */}
-      <div className="w-[70%] h-125 mb-5 bg-gray-50 rounded-md overflow-y-auto px-2 shadow-sm">
+      <div className="w-full max-w-6xl h-125 mb-5 bg-gray-50 rounded-xl overflow-y-auto px-2 shadow-sm">
         {FilteredJobs.length > 0 ? (
           FilteredJobs.map((job) => <Jobcard key={job.id} job={job} />)
         ) : (
